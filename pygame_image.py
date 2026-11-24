@@ -21,15 +21,16 @@ def main():
             if event.type == pg.QUIT: return
 
         key_lst = pg.key.get_pressed()
-        kk_rct.move_ip((-1, 0))  # 何も押していない時は背景と同じ速度で左へ移動
+        dx, dy = -1, 0  # デフォルトの移動量（左に-1、縦は0）
         if key_lst[pg.K_UP]:
-            kk_rct.move_ip((0, -1))
+            dy -= 1
         if key_lst[pg.K_DOWN]:
-            kk_rct.move_ip((0, 1))
+            dy += 1
         if key_lst[pg.K_LEFT]:
-            kk_rct.move_ip((-1, 0))
+            dx -= 1
         if key_lst[pg.K_RIGHT]:
-            kk_rct.move_ip((2, 0))  # 左に-1されているので、+2すると差し引き+1で右へ進む
+            dx += 2
+        kk_rct.move_ip((dx, dy))  # move_ipはここ1回だけ！
 
         x = tmr%3200  # 練習5：背景画像移動用の変数／練習9：ループ
         screen.blit(bg_img, [-x, 0])  # 練習2
